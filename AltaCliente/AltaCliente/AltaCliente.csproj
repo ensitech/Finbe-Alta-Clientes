@@ -76,10 +76,10 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="https://wsappclientespbas.finbe.com.mx/AxServiceProd/AxServiceProd.asmx">
+    <WebReferenceUrl Include="http://srvaxpbas3.mdaote.bepensa.local:8091/AxServiceProd.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\WsDynamicsAx\</RelPath>
-      <UpdateFromURL>https://wsappclientespbas.finbe.com.mx/AxServiceProd/AxServiceProd.asmx</UpdateFromURL>
+      <UpdateFromURL>http://srvaxpbas3.mdaote.bepensa.local:8091/AxServiceProd.asmx</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
