@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="AltaCliente_WsDynamicsAx_AxServiceProd" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://srvaxpbas3.mdaote.bepensa.local:8091/AxServiceProd.asmx</Value>
+      <Value Profile="(Default)">https://wsappclientespbas.finbe.com.mx/AxServiceProd/AxServiceProd.asmx</Value>
     </Setting>
   </Settings>
 </SettingsFile>

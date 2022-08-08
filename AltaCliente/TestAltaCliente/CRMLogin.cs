@@ -14,14 +14,20 @@ namespace AltaCliente
         public static IOrganizationService createService()
         {
             //String url = "http://srvbbcrm11des1.mdaote.bepensa.local:5555/Financiera/XRMServices/2011/Organization.svc";
-            String url = "https://appscrm13.bepensa.com:445/FinancieraPbas/XRMServices/2011/Organization.svc";
-           //String url = "https://appsfb.bepensa.com:5000/Financiera/XRMServices/2011/Organization.svc";
-           String user = "ravilama";
-           //"admin_crmdes";
-           String domain = "adpeco";
-           String password = "Changos92...";
-                //"4dmin3110";
+            //String url = "https://appscrm13.bepensa.com:444/FinancieraPbas/XRMServices/2011/Organization.svc";
 
+            String url = "https://appscrm13.bepensa.com:444/FinancieraDes/XRMServices/2011/Organization.svc";
+            String user = "wicaamaly";
+            //"admin_crmdes"usr_fbportalprod;P0rTa1prod14
+            String domain = "bepensa";
+            String password = "b3p3ns4*18";
+            /*
+            String user = "jgayossof";
+            //"admin_crmdes";
+            String domain = "operadora";
+            String password = "cartera4";
+                //"4dmin3110";
+            */
             return createService(url, user, domain, password);
         }
 

@@ -105,10 +105,16 @@ namespace AltaCliente
             string str31;
             string str32;
             string str42 = "MX";
+            string usoComprobanteCodigo = string.Empty;
+            string regimenFiscalCodigo = string.Empty;
+            string codigoPostal = string.Empty;
+            string razonSocial = string.Empty;
+            string genero = string.Empty;
+
             if (list1[0][(object)"fib_customerpmid"] != null)
             {
                 Guid guid1 = new Guid(list1[0][(object)"fib_customerpmid"].ToString());
-                string[] atributos2 = new string[24]
+                string[] atributos2 = new string[28]
                 {
                   "accountnumber",
                   "name",
@@ -133,9 +139,47 @@ namespace AltaCliente
                   "fib_formadepagoid",
                   "fib_digitos",
                   "fib_correoelectronicoadicional",
-                  "fib_tipodepersonamoral"
+                  "fib_tipodepersonamoral",
+                  "fib_usocomprobanteid",
+                  "fib_regimenfiscalid",
+                  "fib_codigopostalcfdi",
+                  "fib_razonsocialcfdi"
                 };
-                string str33 = "<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>       <entity name='account'>          <attribute name='accountnumber' />          <attribute name='name' />          <attribute name='fib_rfc' />          <attribute name='address1_line1' />          <attribute name='fib_coloniaid' />          <attribute name='address1_postalcode' />          <attribute name='address2_line1' />          <attribute name='fib_coloniaid2' />          <attribute name='address2_postalcode' />          <attribute name='fib_address3_line1' />          <attribute name='fib_coloniaid3' />          <attribute name='fib_address3_postalcode' />          <attribute name='fib_apellidopaterno' />          <attribute name='fib_apellidomaterno' />          <attribute name='address1_primarycontactname' />          <attribute name='fib_segundonombre' />          <attribute name='telephone3' />          <attribute name='fax' />          <attribute name='emailaddress1' />          <attribute name='fib_impuestoaplicable' />          <attribute name='fib_formadepagoid' />          <attribute name='fib_digitos' />          <attribute name='fib_correoelectronicoadicional' />          <attribute name='fib_tipodepersonamoral' />\t\t     <filter type='and'>              <condition attribute='accountid' operator='eq' value='" + guid1.ToString() + "' />          </filter>      </entity>  </fetch>";
+                string str33 = "<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>       " +
+                    "<entity name='account'>          " +
+                    "<attribute name='accountnumber' />          " +
+                    "<attribute name='name' />          " +
+                    "<attribute name='fib_rfc' />          " +
+                    "<attribute name='address1_line1' />          " +
+                    "<attribute name='fib_coloniaid' />          " +
+                    "<attribute name='address1_postalcode' />          " +
+                    "<attribute name='address2_line1' />          " +
+                    "<attribute name='fib_coloniaid2' />          " +
+                    "<attribute name='address2_postalcode' />          " +
+                    "<attribute name='fib_address3_line1' />          " +
+                    "<attribute name='fib_coloniaid3' />          " +
+                    "<attribute name='fib_address3_postalcode' />          " +
+                    "<attribute name='fib_apellidopaterno' />          " +
+                    "<attribute name='fib_apellidomaterno' />          " +
+                    "<attribute name='address1_primarycontactname' />          " +
+                    "<attribute name='fib_segundonombre' />          " +
+                    "<attribute name='telephone3' />          " +
+                    "<attribute name='fax' />          " +
+                    "<attribute name='emailaddress1' />          " +
+                    "<attribute name='fib_impuestoaplicable' />          " +
+                    "<attribute name='fib_formadepagoid' />          " +
+                    "<attribute name='fib_digitos' />          " +
+                    "<attribute name='fib_correoelectronicoadicional' />          " +
+                    "<attribute name='fib_tipodepersonamoral' />         " +
+                    "<attribute name='fib_usocomprobanteid' />          " +
+                    "<attribute name='fib_regimenfiscalid' />          " +
+                    "<attribute name='fib_codigopostalcfdi' />           " +
+                    "<attribute name='fib_razonsocialcfdi' />           " +
+                    "<filter type='and'>              " +
+                    "<condition attribute='accountid' operator='eq' value='" + guid1.ToString() + "' />          " +
+                    "</filter>      " +
+                    "</entity>  " +
+                    "</fetch>";
 
                 request = new ExecuteFetchRequest { FetchXml = str33 };
                 response = (ExecuteFetchResponse)servicio.Execute(request);
@@ -218,11 +262,32 @@ namespace AltaCliente
                 str31 = list2[0][(object)"fib_digitos"] != null ? list2[0][(object)"fib_digitos"].ToString() : "";
                 str32 = list2[0][(object)"fib_correoelectronicoadicional"] != null ? list2[0][(object)"fib_correoelectronicoadicional"].ToString() : "";
                 str42 = "MX";
+
+                if (list2[0]["fib_usocomprobanteid"] != null)
+                {
+                    var usoComprobanteId = new Guid(list2[0]["fib_usocomprobanteid"].ToString());
+
+                    var hashTable = ObtenCodigoUsoComprobante(servicio, usoComprobanteId);
+
+                    usoComprobanteCodigo = hashTable[0]["fib_codigo"].ToString();
+                }
+
+                if (list2[0]["fib_regimenfiscalid"] != null)
+                {
+                    var regimenFiscalId = new Guid(list2[0]["fib_regimenfiscalid"].ToString());
+
+                    var hashTable = ObtenCodigoRegimen(servicio, regimenFiscalId);
+
+                    regimenFiscalCodigo = hashTable[0]["fib_codigo"].ToString();
+                }
+
+                codigoPostal = list2[0]["fib_codigopostalcfdi"] != null ? list2[0]["fib_codigopostalcfdi"].ToString() : string.Empty;
+                razonSocial = list2[0]["fib_razonsocialcfdi"] != null ? list2[0]["fib_razonsocialcfdi"].ToString() : string.Empty;
             }
             else
             {
                 Guid guid1 = new Guid(list1[0][(object)"fib_customerpfid"].ToString());
-                string[] atributos2 = new string[25]
+                string[] atributos2 = new string[29]
                             {
                               "fib_numpersonafisica",
                               "lastname",
@@ -248,9 +313,48 @@ namespace AltaCliente
                               "fib_formadepagoid",
                               "fib_digitos",
                               "fib_correoelectronicoadicional",
-                              "fib_paisdenacimientoid"
+                              "fib_paisdenacimientoid",
+                              "fib_usocomprobanteid",
+                              "fib_regimenfiscalid",
+                              "fib_codigopostalcfdi",
+                              "gendercode"
                             };
-                string str33 = "<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>       <entity name='contact'>          <attribute name='fib_numpersonafisica' />          <attribute name='lastname' />          <attribute name='fib_apellidomaterno' />          <attribute name='firstname' />          <attribute name='middlename' />          <attribute name='fib_rfc' />          <attribute name='fib_curp' />          <attribute name='address1_line1' />          <attribute name='fib_coloniaid' />          <attribute name='address1_postalcode' />          <attribute name='fib_address3_line1' />          <attribute name='fib_coloniaid3' />          <attribute name='fib_address3_postalcode' />          <attribute name='fib_address4_line1' />          <attribute name='fib_coloniaid4' />          <attribute name='fib_address4_postalcode' />          <attribute name='telephone2' />          <attribute name='mobilephone' />          <attribute name='emailaddress1' />          <attribute name='fib_impuestosaplicables' />          <attribute name='customertypecode' />          <attribute name='fib_formadepagoid' />          <attribute name='fib_digitos' />          <attribute name='fib_correoelectronicoadicional' />          <attribute name='fib_paisdenacimientoid' />\t\t     <filter type='and'>              <condition attribute='contactid' operator='eq' value='" + guid1.ToString() + "' />          </filter>      </entity>  </fetch>";
+                string str33 = "<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>" +
+                    "<entity name='contact'>" +
+                    "<attribute name='fib_numpersonafisica' />" +
+                    "<attribute name='lastname' />" +
+                    "<attribute name='fib_apellidomaterno' />" +
+                    "<attribute name='firstname' />" +
+                    "<attribute name='middlename' />" +
+                    "<attribute name='fib_rfc' />" +
+                    "<attribute name='fib_curp' />" +
+                    "<attribute name='address1_line1' />" +
+                    "<attribute name='fib_coloniaid' />" +
+                    "<attribute name='address1_postalcode' />" +
+                    "<attribute name='fib_address3_line1' />" +
+                    "<attribute name='fib_coloniaid3' />" +
+                    "<attribute name='fib_address3_postalcode' />" +
+                    "<attribute name='fib_address4_line1' />" +
+                    "<attribute name='fib_coloniaid4' />" +
+                    "<attribute name='fib_address4_postalcode' />" +
+                    "<attribute name='telephone2' />" +
+                    "<attribute name='mobilephone' />" +
+                    "<attribute name='emailaddress1' />" +
+                    "<attribute name='fib_impuestosaplicables' />" +
+                    "<attribute name='customertypecode' />" +
+                    "<attribute name='fib_formadepagoid' />" +
+                    "<attribute name='fib_digitos' />" +
+                    "<attribute name='fib_correoelectronicoadicional' />" +
+                    "<attribute name='fib_paisdenacimientoid' />" +
+                    "<attribute name='fib_usocomprobanteid' />" +
+                    "<attribute name='fib_regimenfiscalid' />" +
+                    "<attribute name='fib_codigopostalcfdi' />" +
+                    "<attribute name='gendercode' />" +
+                    "<filter type='and'>" +
+                    "<condition attribute='contactid' operator='eq' value='" + guid1.ToString() + "' />" +
+                    "</filter>" +
+                    "</entity>" +
+                    "</fetch>";
 
                 request = new ExecuteFetchRequest { FetchXml = str33 };
                 response = (ExecuteFetchResponse)servicio.Execute(request);
@@ -348,6 +452,30 @@ namespace AltaCliente
 
                 str31 = list2[0][(object)"fib_digitos"] != null ? list2[0][(object)"fib_digitos"].ToString() : "";
                 str32 = list2[0][(object)"fib_correoelectronicoadicional"] != null ? list2[0][(object)"fib_correoelectronicoadicional"].ToString() : "";
+
+                if (list2[0]["fib_usocomprobanteid"] != null)
+                {
+                    var usoComprobanteId = new Guid(list2[0]["fib_usocomprobanteid"].ToString());
+
+                    var hashTable = ObtenCodigoUsoComprobante(servicio, usoComprobanteId);
+
+                    usoComprobanteCodigo = hashTable[0]["fib_codigo"].ToString();
+                }
+
+                if (list2[0]["fib_regimenfiscalid"] != null)
+                {
+                    var regimenFiscalId = new Guid(list2[0]["fib_regimenfiscalid"].ToString());
+
+                    var hashTable = ObtenCodigoRegimen(servicio, regimenFiscalId);
+
+                    regimenFiscalCodigo = hashTable[0]["fib_codigo"].ToString();
+                }
+
+                codigoPostal = list2[0]["fib_codigopostalcfdi"] != null ? list2[0]["fib_codigopostalcfdi"].ToString() : string.Empty;
+
+                if (list2[0]["gendercode"] != null)
+                    genero = list2[0]["gendercode"].ToString() == "1" ? "M" : "F";
+                
             }
             string str38 = list1[0][(object)"fib_name"].ToString();
             double num1 = double.Parse(list1[0][(object)"fib_diferenciaimporte"].ToString());
@@ -423,7 +551,7 @@ namespace AltaCliente
             try
             {
                 AxServiceProd axServiceProd = new AxServiceProd();
-                string xmlSerializado1 = this.SerializarToXml(new object[34]
+                string xmlSerializado1 = this.SerializarToXml(new object[39]
                     {
                       (object) str18,
                       (object) str16,
@@ -458,34 +586,53 @@ namespace AltaCliente
                       (object) str12,
                       (object) str31,
                       (object) str32,
-                      (object) str42
+                      (object) str42,
+                      usoComprobanteCodigo,
+                      regimenFiscalCodigo,
+                      razonSocial,
+                      codigoPostal,
+                      genero
                     });
 
 
                 //Arrendadora
-
+                List<string> errors = new List<string>();
                 
                 Tuple<InfoConexion, Uri> infoConexion1 = this.getInfoConexion(servicio, 1);
                 InfoConexion first1 = infoConexion1.First;
                 axServiceProd.Url = infoConexion1.Second.ToString();
                 line = axServiceProd.altaCliente(this.DomainLogonName, xmlSerializado1, first1);
 
+                if (!line.Contains("Exito"))
+                    errors.Add("Compañia " + first1.empresa + " :" + line);
+
                 Tuple<InfoConexion, Uri> infoConexion2 = this.getInfoConexion(servicio, 2);
                 InfoConexion first2 = infoConexion2.First;
                 axServiceProd.Url = infoConexion2.Second.ToString();
                 line = axServiceProd.altaCliente(this.DomainLogonName, xmlSerializado1, first2);
 
+                if (!line.Contains("Exito"))
+                    errors.Add("Compañia " + first2.empresa + " :" + line);
+
                 Tuple<InfoConexion, Uri> infoConexion4 = this.getInfoConexion(servicio, 3);
                 InfoConexion first4 = infoConexion4.First;
                 axServiceProd.Url = infoConexion4.Second.ToString();
                 line = axServiceProd.altaCliente(this.DomainLogonName, xmlSerializado1, first4);
-                             
+
+                if (!line.Contains("Exito"))
+                    errors.Add("Compañia " + first4.empresa + " :" + line);
+
                 int tipoProducto = this.getTipoProducto(servicio, idLineaCredito);
 
                 Tuple<InfoConexion, Uri> infoConexion3 = this.getInfoConexion(servicio, tipoProducto);
                 InfoConexion first3 = infoConexion3.First;
                 axServiceProd.Url = infoConexion3.Second.ToString();
-                if (line.Contains("Exito"))
+
+                if (errors.Count > 0)
+                {
+                    throw new Exception(string.Join("|", errors));
+                }
+                else
                 {
                     ///Llamar a Alta empleador
 
@@ -517,26 +664,21 @@ namespace AltaCliente
                         line = axServiceProd.contabilizaEvento(this.DomainLogonName, xmlSerializado3, first3);
                         if (line.Contains("Exito"))
                         {
-                            string xmlSerializado4 = this.SerializarToXml(new object[1]
-              {
-                (object) str38
-              });
+                            string xmlSerializado4 = this.SerializarToXml(new object[1] { (object) str38 });
                             line = axServiceProd.altaGarantias(this.DomainLogonName, xmlSerializado4, xmlCal, first3);
                             flag = line.Contains("Exito");
-
-
                         }
                     }
                 }
-                if (line.Contains("Error"))
-                {
-                    Entity entity = new Entity("fib_lineadecredito");
-                    entity.Id = new Guid(list1[0][(object)"fib_lineadecreditoid"].ToString());
+                //else
+                //{
+                //    Entity entity = new Entity("fib_lineadecredito");
+                //    entity.Id = new Guid(list1[0][(object)"fib_lineadecreditoid"].ToString());
 
-                    entity.Attributes.Add("fib_estatus", new OptionSetValue(1));
+                //    entity.Attributes.Add("fib_estatus", new OptionSetValue(1));
 
-                    servicio.Update(entity);
-                }
+                //    servicio.Update(entity);
+                //}
                 
             }
             catch (SoapException ex)
@@ -547,9 +689,9 @@ namespace AltaCliente
             {
                 throw new InvalidPluginExecutionException("Error: " + ex.Message);
             }
-            flag = line.Contains("Error");
-            if (line.Contains("Error"))
-                throw new InvalidPluginExecutionException(line);
+            //flag = line.Contains("Error");
+            //if (line.Contains("Error"))
+            //    throw new InvalidPluginExecutionException(line);
         }
 
         private string SerializarToXml(object[] myparams)
@@ -777,6 +919,43 @@ namespace AltaCliente
                 }*/
             }
             return new Tuple<InfoConexion, Uri>(first, second);
+        }
+
+        private List<Hashtable> ObtenCodigoUsoComprobante(IOrganizationService servicio, Guid usoComprobanteId)
+        {
+            string[] atributos = new string[1] { "fib_codigo" };
+
+            string fetch = "<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>       " +
+                "<entity name='fib_usocomprobante'>          " +
+                "<attribute name='fib_codigo' />\t\t     " +
+                "<filter type='and'>              " +
+                "<condition attribute='fib_usocomprobanteid' operator='eq' value='" + usoComprobanteId.ToString() + "' />          " +
+                "</filter>      " +
+                "</entity>  " +
+                "</fetch>";
+
+            var request = new ExecuteFetchRequest { FetchXml = fetch };
+            var response = (ExecuteFetchResponse)servicio.Execute(request);
+            return this.XmlToMap(response.FetchXmlResult, atributos);
+        }
+
+        private List<Hashtable> ObtenCodigoRegimen(IOrganizationService servicio, Guid regimenFiscalId)
+        {
+            string[] atributos = new string[1] { "fib_codigo" };
+
+            string fetch = "<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>       " +
+                "<entity name='fib_regimenfiscal'>          " +
+                "<attribute name='fib_codigo' />        " +
+                "<filter type='and'>              " +
+                "<condition attribute='fib_regimenfiscalid' operator='eq' value='" + regimenFiscalId.ToString() + "' />          " +
+                "</filter>      " +
+                "</entity>  " +
+                "</fetch>";
+
+            var request = new ExecuteFetchRequest { FetchXml = fetch };
+            var response = (ExecuteFetchResponse)servicio.Execute(request);
+
+            return this.XmlToMap(response.FetchXmlResult, atributos);
         }
     }
 }
