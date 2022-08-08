@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.902
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AltaCliente", "AltaCliente\AltaCliente.csproj", "{87692EAF-8ED7-458B-928E-34DB5C8E5A5D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAltaCliente", "TestAltaCliente\TestAltaCliente.csproj", "{31BF9F9F-96F1-4597-8DBF-434B926B0A60}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{87692EAF-8ED7-458B-928E-34DB5C8E5A5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87692EAF-8ED7-458B-928E-34DB5C8E5A5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87692EAF-8ED7-458B-928E-34DB5C8E5A5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87692EAF-8ED7-458B-928E-34DB5C8E5A5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31BF9F9F-96F1-4597-8DBF-434B926B0A60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31BF9F9F-96F1-4597-8DBF-434B926B0A60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31BF9F9F-96F1-4597-8DBF-434B926B0A60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31BF9F9F-96F1-4597-8DBF-434B926B0A60}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B68F8824-F5D6-441A-B8F4-DB095B77A444}
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = AltaCliente.vsmdi
+	EndGlobalSection
+EndGlobal
